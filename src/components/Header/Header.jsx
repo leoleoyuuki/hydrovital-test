@@ -1,8 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+
+    const url = usePathname();
+
   return (
     <div className="flex flex-row items-center justify-around drop-shadow shadow-md">
 
@@ -14,9 +18,9 @@ export default function Header() {
 
         <nav>
             <ul className="flex justify-between w-72">
-                <li><Link href="">Home</Link></li>
-                <li><Link href="">Sobre</Link></li>
-                <li><Link href="">Contato</Link></li>
+                <li className={url == "/" ? "text-blue-300" : "text-base"}><Link href="/">Home</Link></li>
+                <li className={url == "/servico" ? "text-blue-300" : "text-base"}><Link href="/servico">Serviço</Link></li>
+                <li className={url == "/contrato" ? "text-blue-300" : "text-base"}><Link href="/contrato">contrato</Link></li>
             </ul>
         </nav>
     </div>

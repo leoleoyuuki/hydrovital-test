@@ -1,10 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer(){
+
+    const url = usePathname();
+
+    
     return (
-        <footer className="bg-slate-800 text-white py-3">
+        <footer className={url == "/login" ? "bg-slate-800 text-white py-3 absolute w-full bottom-0" :  "bg-slate-800 text-white py-3"}>
           <div className="flex flex-col items-center justify-around">
             <div className="logo cursor-pointer mb-4">
               <Link href="/">
@@ -14,9 +19,9 @@ export default function Footer(){
     
             <nav className="mb-4">
               <ul className="flex justify-between gap-4">
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/sobre">Sobre</Link></li>
-                <li><Link href="/contato">Contato</Link></li>
+              <li className={url == "/" ? "text-blue-300" : "text-base"}><Link href="/">Home</Link></li>
+                <li className={url == "/servico" ? "text-blue-300" : "text-base"}><Link href="/servico">Serviço</Link></li>
+                <li className={url == "/contrato" ? "text-blue-300" : "text-base"}><Link href="/contrato">contrato</Link></li>
               </ul>
             </nav>
     
