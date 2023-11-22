@@ -7,14 +7,12 @@ import { redirect } from 'next/navigation';
 export default function Home(){
 
   useEffect(() => {
-    // Simulando a verificação de autenticação (substitua isso pela sua lógica real)
-    const isAuthenticated = sessionStorage.getItem('token') !== null;
 
-    // Se não estiver autenticado, redirecione para a página de login
-    if (!isAuthenticated) {
-      redirect('/login');
+    if (sessionStorage.getItem("token") !== null) {
+      console.log("logado");
+    }else{
+      redirect('/signup')
     }
-    // Adicione mais lógica aqui, se necessário
   }, []);
 
   return (
@@ -64,8 +62,74 @@ export default function Home(){
 
       <div className="flex justify-center">
         <div className="processos m-4 p-6 w-4/5 flex flex-wrap justify-center gap-6 bg-white shadow-md">
-          {/* Seus processos aqui */}
-        </div>
+        <div className="bg-white p-6 rounded-lg shadow-md w-96 mb-6">
+            <Image
+              src="/img/processo1.png"
+              width={300}
+              height={250}
+              alt="Coagulação e Floculação"
+            />
+            <h3 className="text-xl font-bold mt-4 mb-2">Coagulação e Floculação</h3>
+            <p className="text-gray-600">
+              Na etapa de Coagulação e Floculação, implementamos tecnologia de automação avançada. Sensores em tempo real garantem a dosagem precisa de coagulantes, como Sulfato de Alumínio e Cloreto Férrico, otimizando a formação de flocos e resultando em água mais limpa e segura para consumo.
+            </p>
+          </div>
+
+          {/* Processo 2 */}
+          <div className="bg-white p-6 rounded-lg shadow-md w-96 mb-6">
+            <Image
+              src="/img/processo2.jpg"
+              width={300}
+              height={250}
+              alt="Decantação"
+            />
+            <h3 className="text-xl font-bold mt-4 mb-2">Decantação</h3>
+            <p className="text-gray-600">
+              Em nossa abordagem de Decantação, maximizamos a separação de flocos da água através de automação avançada. Sensores de nível e qualidade da água controlam o processo, garantindo uma remoção eficiente de impurezas. Nosso sistema ajusta dinamicamente o tempo de retenção para otimizar os resultados.
+            </p>
+          </div>
+
+          {/* Processo 3 */}
+          <div className="bg-white p-6 rounded-lg shadow-md w-96 mb-6">
+            <Image
+              src="/img/processo3.png"
+              width={300}
+              height={250}
+              alt="Filtração"
+            />
+            <h3 className="text-xl font-bold mt-4 mb-2">Filtração</h3>
+            <p className="text-gray-600">
+              Nossa tecnologia de Filtração Automática inova ao ajustar dinamicamente a taxa de filtração com base na qualidade da água. Asseguramos uma remoção eficaz de impurezas, melhorando significativamente a eficiência do tratamento de água com nossa solução de filtragem automatizada.
+            </p>
+          </div>
+
+          {/* Processo 4 */}
+          <div className="bg-white p-6 rounded-lg shadow-md w-96 mb-6">
+            <Image
+              src="/img/processo4.jpg"
+              width={300}
+              height={250}
+              alt="Desinfecção"
+            />
+            <h3 className="text-xl font-bold mt-4 mb-2">Desinfecção</h3>
+            <p className="text-gray-600">
+              Nosso processo de Desinfecção Automatizada visa proteger comunidades contra microrganismos patogênicos. Monitoramos em tempo real a qualidade da água e ajustamos a dosagem de desinfetantes, como cloro, garantindo a eliminação efetiva de ameaças à saúde.
+            </p>
+          </div>
+
+          {/* Processo 5 */}
+          <div className="bg-white p-6 rounded-lg shadow-md w-96 mb-6">
+            <Image
+              src="/img/processo5.jpg"
+              width={300}
+              height={250}
+              alt="Fluoretação"
+            />
+            <h3 className="text-xl font-bold mt-4 mb-2">Fluoretação</h3>
+            <p className="text-gray-600">
+              Comprometemo-nos com a saúde bucal da sua comunidade através da Fluoretação Automatizada. Dosamos com precisão compostos fluoretantes, contribuindo para a redução da cárie dentária. Adote nossa solução para proporcionar água mais saudável e sorridentes mais felizes.
+            </p>
+          </div>        </div>
       </div>
 
       <div className="banner2 flex justify-around items-center shadow-md ">

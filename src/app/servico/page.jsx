@@ -6,16 +6,14 @@ import { useEffect } from "react";
 
 export default function Servico() {
 
-    useEffect(() => {
-        // Simulando a verificação de autenticação (substitua isso pela sua lógica real)
-        const isAuthenticated = sessionStorage.getItem('token') !== null;
-    
-        // Se não estiver autenticado, redirecione para a página de login
-        if (!isAuthenticated) {
-          redirect('/login');
-        }
-        // Adicione mais lógica aqui, se necessário
-      }, []);
+  useEffect(() => {
+
+    if (sessionStorage.getItem("token") !== null) {
+      console.log("logado");
+    }else{
+      redirect('/signup')
+    }
+  }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen">
