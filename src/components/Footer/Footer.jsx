@@ -7,7 +7,8 @@ export default function Footer(){
 
     const url = usePathname();
 
-    
+    var cpf = sessionStorage.getItem("token");
+
     return (
         <footer className={url.includes("/sign") ? "bg-slate-800 text-white py-3 absolute w-full bottom-0" :  "bg-slate-800 text-white py-3"}>
           <div className="flex flex-col items-center justify-around">
@@ -21,7 +22,7 @@ export default function Footer(){
               <ul className="flex justify-between gap-4">
               <li className={url == "/" ? "text-blue-300" : "text-base"}><Link href="/">Home</Link></li>
                 <li className={url == "/servico" ? "text-blue-300" : "text-base"}><Link href="/servico">Serviço</Link></li>
-                <li className={url == "/dashboard" ? "text-blue-300" : "text-base"}><Link href="/dashboard">dashboard</Link></li>
+                <li className={url == `/dashboard/${cpf}` ? "text-blue-300" : "text-base"}><Link href={`/dashboard/${cpf}`}>dashboard</Link></li>
               </ul>
             </nav>
     

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Servico() {
+  var cpf = sessionStorage.getItem("token");
 
   useEffect(() => {
 
@@ -15,7 +16,6 @@ export default function Servico() {
     }
   }, []);
 
-  // var usuario = sessionStorage.getItem("token");
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -119,7 +119,7 @@ export default function Servico() {
         <p className="text-lg mb-8">
           Entre em contrato conosco para saber mais sobre nossos serviços e como podemos ajudar.
         </p>
-        <Link href="/dashboard">
+        <Link href={`/dashboard/${cpf}`}>
           <p className="bg-white text-blue-400 px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-200 cursor-pointer">
             Iniciar contrato
           </p>

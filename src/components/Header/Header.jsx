@@ -7,7 +7,7 @@ export default function Header() {
 
     const url = usePathname();
     
-    var usuario = sessionStorage.getItem("token");
+    var cpf = sessionStorage.getItem("token");
 
 
   return (
@@ -23,7 +23,7 @@ export default function Header() {
             <ul className="flex justify-between w-72">
                 <li className={url == "/" ? "text-blue-300" : "text-base"}><Link href="/">Home</Link></li>
                 <li className={url == "/servico" ? "text-blue-300" : "text-base"}><Link href="/servico">Serviço</Link></li>
-                <li className={url == "/dashboard" ? "text-blue-300" : "text-base"}><Link href={`/dashboard/${usuario}`}>dashboard</Link></li>
+                <li className={url == `/dashboard/${cpf}` ? "text-blue-300" : "text-base"}><Link href={`/dashboard/${cpf}`}>dashboard</Link></li>
             </ul>
         </nav>
     </div>

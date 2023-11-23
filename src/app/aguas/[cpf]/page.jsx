@@ -2,15 +2,15 @@
 // Importações necessárias
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 export default function Dashboard() {
   // Estado para armazenar os dados das ONGs
   const [ongs, setOngs] = useState([]);
+  const [aguas, setAguas] = useState([]);
   const [finalOngs, setFinalOngs] = useState([]);
-  const[aguas, setAguas] = useState([{}]);
   var cpf = sessionStorage.getItem("token");
- 
+  const url = usePathname();
 
   useEffect(() => {
     // Verificar se o usuário está autenticado, caso contrário, redirecionar para a página de login
@@ -42,11 +42,31 @@ export default function Dashboard() {
         .catch((error) => {
           console.error("Erro ao buscar dados das ONGs:", error);
         });
-        
+
+        fetch("http://localhost:8080/hydrovital/agua")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((aguasData) => {
+          // Atualizar o estado com os dados das ONGs
+          setAguas(aguasData);
+
+          // Encontrar todas as ONGs correspondentes ao CPF
+          const aguasEncontradas = aguasData.filter((agua) => agua.cpf === cpf);
+          if (aguasEncontradas.length > 0) {
+            setAguas(aguasEncontradas);
+          } else {
+            console.log("Águas não encontradas para o CPF:", cpf);
+          }
+        })
+
     }
   }, []);
 
-
+console.log(aguas);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -59,8 +79,8 @@ export default function Dashboard() {
           </Link>
         </div>
         <div className="p-4">
-          <Link href={`/aguas/${cpf}`}>
-            <p className={"text-gray-500 hover:text-blue-500"}>Águas</p>
+          <Link href="/aguas">
+            <p className={url.includes("/aguas") ?  "text-blue-300 underline hover:text-blue-500" : "text-gray-500 hover:text-blue-500"}>Águas</p>
           </Link>
         </div>
         <div className="p-4">
@@ -87,11 +107,25 @@ export default function Dashboard() {
             {finalOngs.map((ong) => (
               <div key={ong.cnpj} className="bg-white p-4 mb-4 shadow-md rounded-md">
                 <h3 className="text-lg text-black font-semibold mb-2">{ong.nome}</h3>
-                {/* Aqui você pode exibir os serviços contratados para cada ONG */}
-                {/* Você também pode adicionar um link para p página de detalhes da ONG */}
-                <Link href={`/ong/${ong.cnpj}`}>
-                  <p className="text-blue-500 hover:underline">Ver Detalhes</p>
-                </Link>
+                <p>{ong.cnpj}</p>
+                <p>{ong.telefone}</p>
+                <p>{ong.localidade}</p>
+                <p>{ong.email}</p>
+                <br /><hr /><br />
+                {aguas.map((agua) => (
+                  <div key={agua.id} className="bg-white p-4 mb-4 shadow-md rounded-md">
+                    <h3 className="text-lg text-black font-semibold mb-2">{agua.nome}</h3>
+                    <p>{agua.cpf}</p>
+                    <p>{agua.qualidade}</p>
+                    <p>{agua.localidade}</p>
+                    <p>{agua.email}</p>
+                    <br /><hr /><br />
+                  </div>
+                ))
+                  
+                }
+                
+
               </div>
             ))}
           </section>
