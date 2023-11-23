@@ -43,7 +43,7 @@ export default function Dashboard() {
           console.error("Erro ao buscar dados das ONGs:", error);
         });
 
-        fetch("http://localhost:8080/hydrovital/agua")
+      fetch("http://localhost:8080/hydrovital/agua")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -61,12 +61,11 @@ export default function Dashboard() {
           } else {
             console.log("Águas não encontradas para o CPF:", cpf);
           }
-        })
-
+        });
     }
   }, []);
 
-console.log(aguas);
+  console.log(aguas);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -80,7 +79,15 @@ console.log(aguas);
         </div>
         <div className="p-4">
           <Link href="/aguas">
-            <p className={url.includes("/aguas") ?  "text-blue-300 underline hover:text-blue-500" : "text-gray-500 hover:text-blue-500"}>Águas</p>
+            <p
+              className={
+                url.includes("/aguas")
+                  ? "text-blue-300 underline hover:text-blue-500"
+                  : "text-gray-500 hover:text-blue-500"
+              }
+            >
+              Águas
+            </p>
           </Link>
         </div>
         <div className="p-4">
@@ -105,27 +112,34 @@ console.log(aguas);
           <section>
             <h2 className="text-xl font-semibold mb-4">Suas ONGs</h2>
             {finalOngs.map((ong) => (
-              <div key={ong.cnpj} className="bg-white p-4 mb-4 shadow-md rounded-md">
-                <h3 className="text-lg text-black font-semibold mb-2">{ong.nome}</h3>
+              <div
+                key={ong.cnpj}
+                className="bg-white p-4 mb-4 shadow-md rounded-md"
+              >
+                <h3 className="text-lg text-black font-semibold mb-2">
+                  {ong.nome}
+                </h3>
                 <p>{ong.cnpj}</p>
                 <p>{ong.telefone}</p>
                 <p>{ong.localidade}</p>
                 <p>{ong.email}</p>
-                <br /><hr /><br />
+                <br />
+                <hr />
+                <br />
                 {aguas.map((agua) => (
-                  <div key={agua.id} className="bg-white p-4 mb-4 shadow-md rounded-md">
-                    <h3 className="text-lg text-black font-semibold mb-2">{agua.nome}</h3>
-                    <p>{agua.cpf}</p>
-                    <p>{agua.qualidade}</p>
-                    <p>{agua.localidade}</p>
-                    <p>{agua.email}</p>
-                    <br /><hr /><br />
+                  <div
+                    key={agua.id}
+                    className="bg-white p-4 mb-4 shadow-md rounded-md"
+                  >
+                    <h1>Quantidade de Água: {agua.quantidadeAgua}</h1>
+                    <p>Qualidade da Água: {agua.qualidade}</p>
+                    <p>Localidade da Água: {agua.localidade}</p>
+                    <p>Quantidade de Pessoas: {agua.email}</p>
+                    <br />
+                    <hr />
+                    <br />
                   </div>
-                ))
-                  
-                }
-                
-
+                ))}
               </div>
             ))}
           </section>
