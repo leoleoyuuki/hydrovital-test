@@ -15,6 +15,8 @@ export default function Servico() {
     }
   }, []);
 
+  // var usuario = sessionStorage.getItem("token");
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}

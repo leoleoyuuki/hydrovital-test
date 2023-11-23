@@ -42,7 +42,7 @@ export default function Signup() {
             if (contentType && contentType.includes("application/json")) {
                 const resultado = await resposta.json();
                 console.log(resultado);
-                sessionStorage.setItem("token", resultado);
+                sessionStorage.setItem("token", resultado.cpf);
                 window.location.href = '/';
             } else {
                 console.log("Response is not in JSON format");

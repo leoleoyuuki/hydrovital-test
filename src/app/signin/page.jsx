@@ -40,7 +40,7 @@ export default function Signin() {
                     ObjUsuario.dataDeNascimento === usuario.dataDeNascimento
                 );
             if(user){
-              sessionStorage.setItem("token", resultado.token);
+              sessionStorage.setItem("token", user.cpf);
               window.location.href = '/';
             }else{
               alert("Usuário não encontrado");

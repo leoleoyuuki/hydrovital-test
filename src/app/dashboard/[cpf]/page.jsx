@@ -9,6 +9,7 @@ export default function Dashboard() {
   const [ongs, setOngs] = useState([]);
   const [usuario, setUsuario] = useState([]);
   const [finalOng, setFinalOng] = useState([]);
+  var cpf = sessionStorage.getItem("token");
 
   useEffect(() => {
     // Verificar se o usuário está autenticado, caso contrário, redirecionar para a página de login
@@ -49,19 +50,19 @@ export default function Dashboard() {
         .catch((error) => {
           console.error("Erro ao buscar dados das ONGs:", error);
         });
-    } setFinalOng(
-      usuario.forEach((usuario) => {
-        ongs.forEach((ong) => {
-          if (usuario.cpf_user === ong.cpf_usuario) {
-            return ong;
-          }
-        });
-      })
-    );
+    } 
+      var resultado = null;
+      ongs.forEach((ong) => {
+        if (ong.cpf === cpf) {
+          resultado = ong;
+        }
+      });
+      setFinalOng(resultado);
   }, []);
 
  console.log(usuario);
- console.log(ongs);
+//  console.log(ongs);
+ console.log(finalOng);
   
   return (
     <div className="flex h-screen bg-gray-100">
