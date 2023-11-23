@@ -20,50 +20,37 @@ export default function Dashboard() {
 
       // Requisição para obter dados das ONGs
       fetch("http://localhost:8080/hydrovital/ong")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((ongsData) => {
-          // Atualizar o estado com os dados das ONGs
-          setOngs(ongsData);
-        })
-        .catch((error) => {
-          console.error("Erro ao buscar dados das ONGs:", error);
-        });
-
-
-        fetch("http://localhost:8080/hydrovital/usuario")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((usuarioData) => {
-          // Atualizar o estado com os dados das ONGs
-          setUsuario(usuarioData);
-        })
-        
-        .catch((error) => {
-          console.error("Erro ao buscar dados das ONGs:", error);
-        });
-    } 
-      var resultado = null;
-      ongs.forEach((ong) => {
-        if (ong.cpf === cpf) {
-          resultado = ong;
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      });
-      setFinalOng(resultado);
-  }, []);
+        return response.json();
+      })
+      .then((ongsData) => {
+        // Atualizar o estado com os dados das ONGs
+        setOngs(ongsData);
 
- console.log(usuario);
-//  console.log(ongs);
- console.log(finalOng);
-  
+        // Encontrar a ONG correspondente ao CPF
+        const ongEncontrada = ongsData.find((ong) => ong.cpf === cpf);
+        if (ongEncontrada) {
+          setFinalOng([ongEncontrada]);
+        } else {
+          console.log("ONG não encontrada para o CPF:", cpf);
+        }
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados das ONGs:", error);
+      });
+
+    // ... restante do seu código permanece inalterado
+  }
+}, []);
+
+// console.log(usuario);
+// console.log(ongs);
+console.log(finalOng);
+
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Menu Lateral */}
@@ -100,7 +87,7 @@ export default function Dashboard() {
           {/* Seção "Suas ONGs" */}
           <section>
             <h2 className="text-xl font-semibold mb-4">Suas ONGs</h2>
-            {ongs.map((ong) => (
+            {finalOng.map((ong) => (
               <div key={ong.cnpj} className="bg-white p-4 mb-4 shadow-md rounded-md">
                 <h3 className="text-lg text-black font-semibold mb-2">{ong.nome}</h3>
                 {/* Aqui você pode exibir os serviços contratados para cada ONG */}
