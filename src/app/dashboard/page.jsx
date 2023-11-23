@@ -45,17 +45,23 @@ export default function Dashboard() {
           // Atualizar o estado com os dados das ONGs
           setUsuario(usuarioData);
         })
-        .then((finalOngData) => {
-          // Atualizar o estado com os dados das ONGs
-          setFinalOng(finalOngData);
-        })
+        
         .catch((error) => {
           console.error("Erro ao buscar dados das ONGs:", error);
         });
-    }
+    } setFinalOng(
+      usuario.forEach((usuario) => {
+        ongs.forEach((ong) => {
+          if (usuario.cpf_user === ong.cpf_usuario) {
+            return ong;
+          }
+        });
+      })
+    );
   }, []);
 
-  
+ console.log(usuario);
+ console.log(ongs);
   
   return (
     <div className="flex h-screen bg-gray-100">
