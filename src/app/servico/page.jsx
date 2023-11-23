@@ -117,7 +117,7 @@ export default function Servico() {
         <p className="text-lg mb-8">
           Entre em contrato conosco para saber mais sobre nossos serviços e como podemos ajudar.
         </p>
-        <Link href="/contrato">
+        <Link href="/dashboard">
           <p className="bg-white text-blue-400 px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-200 cursor-pointer">
             Iniciar contrato
           </p>

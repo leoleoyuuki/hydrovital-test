@@ -20,7 +20,7 @@ export default function Header() {
             <ul className="flex justify-between w-72">
                 <li className={url == "/" ? "text-blue-300" : "text-base"}><Link href="/">Home</Link></li>
                 <li className={url == "/servico" ? "text-blue-300" : "text-base"}><Link href="/servico">Serviço</Link></li>
-                <li className={url == "/contrato" ? "text-blue-300" : "text-base"}><Link href="/contrato">contrato</Link></li>
+                <li className={url == "/dashboard" ? "text-blue-300" : "text-base"}><Link href="/dashboard">dashboard</Link></li>
             </ul>
         </nav>
     </div>

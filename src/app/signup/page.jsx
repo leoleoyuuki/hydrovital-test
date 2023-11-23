@@ -34,6 +34,7 @@ export default function Signup() {
             },
             body: JSON.stringify(usuario),
         });
+        console.log(resposta);
 
         if (resposta.ok) {
             const contentType = resposta.headers.get("content-type");
