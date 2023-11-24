@@ -1,3 +1,12 @@
+!!!!!! ANTES DE TUDO !!!!!!!!
+!   instale as dependencias !
+!       "npm install"       !
+!        logo depois        !
+!      "npm run dev"        !
+------------------------------
+
+
+
 Um login de usuário para teste:
 nome : João Silva
 telefone: 123456789
