@@ -29,7 +29,7 @@ export default function Footer(){
             <hr className="w-96 border-gray-600 mb-4" />
             <div className="flex gap-4 text-sm">
               <h1>Daniel Soares Delfin</h1>
-              <p>552184</p>
+              <p>rm552184</p>
               <p>1TDSPL</p>
               <p>Back-End & Banco de Dados</p>
             </div>
