@@ -27,6 +27,33 @@ export default function Footer(){
             </nav>
     
             <hr className="w-96 border-gray-600 mb-4" />
+            <div className="flex gap-4 text-sm">
+              <h1>Daniel Soares Delfin</h1>
+              <p>552184</p>
+              <p>1TDSPL</p>
+              <p>Back-End & Banco de Dados</p>
+            </div>
+
+            <div className="flex gap-4 text-sm">
+              <h1>Leonardo Blanco Pérez Ribeiro</h1>
+              <p>rm99119</p>
+              <p>1TDSPL</p>
+              <p>Back-End</p>
+            </div>
+
+            <div className="flex gap-4 text-sm">
+              <h1>Leonardo Yuuki Nakazone</h1>
+              <p>rm550373</p>
+              <p>1TDSPL</p>
+              <p>Front/Back-End, Banco de Dados & Ai</p>
+            </div>
+
+            <div className="flex gap-4 text-sm">
+              <h1>Paulo Henrrique Luchini Ferreira</h1>
+              <p>rm98082</p>
+              <p>1TDSPL</p>
+              <p>Planejamento & Banco de Dados</p>
+            </div>
     
             <p className="text-sm">&copy; 2023 HydroVital . Todos os direitos reservados.</p>
           </div>

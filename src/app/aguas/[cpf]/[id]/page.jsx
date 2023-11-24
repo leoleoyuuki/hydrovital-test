@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
+import { FaRegTrashAlt, FaEdit } from "react-icons/fa";
+import { MdAdd } from "react-icons/md";
+
+
+
 
 export default function Dashboard() {
   // Estado para armazenar os dados das ONGs
@@ -57,7 +62,9 @@ export default function Dashboard() {
           setAguas(aguaData);
 
           // Encontrar todas as ONGs correspondentes ao CPF
-          const aguasEncontradas = aguaData.filter((ong) => ong.cnpjOng == (cnpjs.map((cnpj) => cnpj)));
+          const aguasEncontradas = aguaData.filter(
+            (ong) => ong.cnpjOng == cnpjs.map((cnpj) => cnpj)
+          );
           if (aguasEncontradas.length > 0) {
             setAguas(aguasEncontradas);
           } else {
@@ -66,7 +73,25 @@ export default function Dashboard() {
         });
     }
   }, []);
+  const handleExcluirAgua = async (aguaId) => {
+    try {
+      // Realize a lógica de exclusão aqui, por exemplo, uma solicitação DELETE para o servidor
+      const response = await fetch(`http://localhost:8080/hydrovital/agua/${aguaId}`, {
+        method: 'DELETE',
+      });
   
+      if (response.ok) {
+        // Se a exclusão for bem-sucedida, atualize o estado local ou faça uma nova solicitação para obter os dados atualizados
+        console.log('Água excluída com sucesso!');
+        window.location.reload();
+      } else {
+        console.error('Erro ao excluir a água.');
+      }
+    } catch (error) {
+      console.error('Erro na solicitação de exclusão:', error);
+    }
+  };
+
   console.log(cnpjs);
   console.log(aguas);
 
@@ -129,25 +154,55 @@ export default function Dashboard() {
                 <br />
                 <hr />
                 <br />
-                {aguas.map((agua) => (
-                  ong.cnpj == agua.cnpj ? <div
-                    key={agua.id}
-                    className="bg-white p-4 mb-4 shadow-md rounded-md"
-                  >
-                    <h1>Quantidade de Água: {agua.qualidadeAgua}</h1>
-                    <p>Qualidade da Água: {ong.cnpj == agua.cnpj ? agua.qualidade : ""}</p>
-                    <p>Quantidade de Produto: {ong.cnpj == agua.cnpj ? agua.quantidadeProd : ""}</p>
-                    <p>Quantidade de Pessoas: {ong.cnpj == agua.cnpj ?  agua.quantidadePessoa : ""}</p>
-                    <br />
-                    <hr />
-                    <br />
-                    
-                  </div> : ""
-                ))}<Link href={`/adicionar-agua/${ong.cnpj}`}>
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                        Adicionar Água
+                {aguas.map((agua) =>
+                  ong.cnpj == agua.cnpj ? (
+                    <div
+                      key={agua.id}
+                      className="bg-white p-4 mb-4 shadow-md rounded-md"
+                    >
+                      <h1>Quantidade de Água: {agua.qualidadeAgua}</h1>
+                      <p>
+                        Qualidade da Água:{" "}
+                        {ong.cnpj == agua.cnpj ? agua.qualidade : ""}
+                      </p>
+                      <p>
+                        Quantidade de Produto:{" "}
+                        {ong.cnpj == agua.cnpj ? agua.quantidadeProd : ""}
+                      </p>
+                      <p>
+                        Quantidade de Pessoas:{" "}
+                        {ong.cnpj == agua.cnpj ? agua.quantidadePessoa : ""}
+                      </p>
+                      <br />
+                      <hr />
+                      <br />
+                      {/* Botão de Excluir (vermelho) */}
+                      <button
+                        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mr-2"
+                        onClick={() => handleExcluirAgua(agua.id)}
+                      >
+                        <FaRegTrashAlt />
+
                       </button>
-                    </Link>
+
+                      {/* Botão de Alterar (azul) */}
+                      <Link href={`/alterar/${agua.cnpj}/${agua.id}`}>
+                        <button
+                          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                        >
+                          <FaEdit />
+                        </button>
+                      </Link>
+                    </div>
+                  ) : (
+                    ""
+                  )
+                )}
+                <Link href={`/adicionar-agua/${ong.cnpj}`}>
+                  <button className="bg-blue-500 text-white flex justify-evenly items-center px-6 py-2 rounded-md hover:bg-blue-600">
+                    Adicionar Água  <MdAdd/> 
+                  </button>
+                </Link>
               </div>
             ))}
           </section>

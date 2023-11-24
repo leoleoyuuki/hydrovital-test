@@ -88,7 +88,7 @@ sessionStorage.setItem("cnpjs", cnpjs);
             {finalOngs.map((ong) => (
               <div key={ong.cnpj} className="bg-white p-4 mb-4 shadow-md rounded-md">
                 <h3 className="text-lg text-black font-semibold mb-2">{ong.nome}</h3>
-                <Link href={`/ong/${ong.cnpj}`}>
+                <Link href={`/aguas/${ong.cnpj}`}>
                   <p className="text-blue-500 hover:underline">Ver Detalhes</p>
                 </Link>
               </div>
