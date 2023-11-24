@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { FaRegTrashAlt, FaEdit } from "react-icons/fa";
 
 export default function Dashboard() {
   // Estado para armazenar os dados das ONGs
   const [ongs, setOngs] = useState([]);
   const [finalOngs, setFinalOngs] = useState([]);
   var cpf = sessionStorage.getItem("token");
- 
 
   useEffect(() => {
     // Verificar se o usuário está autenticado, caso contrário, redirecionar para a página de login
@@ -41,13 +41,32 @@ export default function Dashboard() {
         .catch((error) => {
           console.error("Erro ao buscar dados das ONGs:", error);
         });
-        
     }
   }, []);
+
+  const handleDeleteOng = async (ongCnpj) => {
+    try {
+      // Realize a lógica de exclusão aqui, por exemplo, uma solicitação DELETE para o servidor
+      const response = await fetch(`http://localhost:8080/hydrovital/ong/${parseInt(ongCnpj)}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        // Se a exclusão for bem-sucedida, atualize o estado local ou faça uma nova solicitação para obter os dados atualizados
+        console.log('Ong excluída com sucesso!');
+        window.location.reload();
+      } else {
+        console.error('Erro ao excluir a água.');
+      }
+    } catch (error) {
+      console.error('Erro na solicitação de exclusão:', error);
+    }
+  };
+
   var cnpjs = [];
-console.log(finalOngs);
-finalOngs.map((ong) => cnpjs.push(ong.cnpj));
-sessionStorage.setItem("cnpjs", cnpjs);
+  console.log(finalOngs);
+  finalOngs.map((ong) => cnpjs.push(ong.cnpj));
+  sessionStorage.setItem("cnpjs", cnpjs);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -86,10 +105,26 @@ sessionStorage.setItem("cnpjs", cnpjs);
           <section>
             <h2 className="text-xl font-semibold mb-4">Suas ONGs</h2>
             {finalOngs.map((ong) => (
-              <div key={ong.cnpj} className="bg-white p-4 mb-4 shadow-md rounded-md">
-                <h3 className="text-lg text-black font-semibold mb-2">{ong.nome}</h3>
+              <div
+                key={ong.cnpj}
+                className="bg-white p-4 mb-4 shadow-md rounded-md"
+              >
+                <h3 className="text-lg text-black font-semibold mb-2">
+                  {ong.nome}
+                </h3>
                 <Link href={`/aguas/${ong.cnpj}`}>
                   <p className="text-blue-500 hover:underline">Ver Detalhes</p>
+                </Link>
+                <button
+                  className="bg-red-500 text-white px-2 py-2 rounded-md hover:bg-red-600"
+                  onClick={() => handleDeleteOng(ong.cnpj)} // Adicione a função de exclusão
+                >
+                  <FaRegTrashAlt />
+                </button>
+                <Link href={`/editar-ong/${ong.cnpj}`}>
+                  <button className="bg-blue-500 text-white px-2 py-2 rounded-md hover:bg-blue-600">
+                    <FaEdit />
+                  </button>
                 </Link>
               </div>
             ))}
