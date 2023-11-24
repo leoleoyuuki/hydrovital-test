@@ -30,7 +30,7 @@ export default function Dashboard() {
       fetch("http://localhost:8080/hydrovital/ong")
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            window.location.href = `/error/${response.status}`;
           }
           return response.json();
         })

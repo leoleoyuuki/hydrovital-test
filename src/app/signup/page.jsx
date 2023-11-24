@@ -48,7 +48,7 @@ export default function Signup() {
                 console.log("Response is not in JSON format");
             }
         } else {
-            console.log(`Erro no servidor: ${resposta.status}`);
+            window.location.href = `/error/${resposta.status}`;
         }
     } catch (error) {
         console.log("Erro ao enviar dados para o backend", error);

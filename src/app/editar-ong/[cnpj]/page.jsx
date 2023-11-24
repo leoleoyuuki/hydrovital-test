@@ -45,7 +45,7 @@ const cpf = sessionStorage.getItem("token");
         setShowEditForm(false);
         window.location.href = `/dashboard/${cpf}`;
       } else {
-        console.error('Erro ao alterar a ong.');
+        window.location.href = `/error/${response.status}`;
       }
     } catch (error) {
       console.error('Erro na solicitação de alteração:', error);

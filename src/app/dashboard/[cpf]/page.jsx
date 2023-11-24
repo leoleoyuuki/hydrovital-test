@@ -56,7 +56,7 @@ export default function Dashboard() {
         console.log('Ong excluída com sucesso!');
         window.location.reload();
       } else {
-        console.error('Erro ao excluir a Ong.');
+        window.location.href = `/error/${response.status}`;
       }
     } catch (error) {
       console.error('Erro na solicitação de exclusão:', error);
