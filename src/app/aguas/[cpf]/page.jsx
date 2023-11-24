@@ -133,11 +133,16 @@ export default function Dashboard() {
                   >
                     <h1>Quantidade de Água: {agua.quantidadeAgua}</h1>
                     <p>Qualidade da Água: {agua.qualidade}</p>
-                    <p>Localidade da Água: {agua.localidade}</p>
-                    <p>Quantidade de Pessoas: {agua.email}</p>
+                    <p>Quantidade de Produto: {agua.quantidadeProd}</p>
+                    <p>Quantidade de Pessoas: {agua.quantidadePessoa}</p>
                     <br />
                     <hr />
                     <br />
+                    <Link href={`/adicionar-agua/${ong.cnpj}`}>
+                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Adicionar Água
+                      </button>
+                    </Link>
                   </div>
                 ))}
               </div>
