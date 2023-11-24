@@ -8,7 +8,6 @@ export default function Dashboard() {
   // Estado para armazenar os dados das ONGs
   const [ongs, setOngs] = useState([]);
   const [finalOngs, setFinalOngs] = useState([]);
-  const[aguas, setAguas] = useState([{}]);
   var cpf = sessionStorage.getItem("token");
  
 
@@ -45,8 +44,10 @@ export default function Dashboard() {
         
     }
   }, []);
-
-
+  var cnpjs = [];
+console.log(finalOngs);
+finalOngs.map((ong) => cnpjs.push(ong.cnpj));
+sessionStorage.setItem("cnpjs", cnpjs);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -87,8 +88,6 @@ export default function Dashboard() {
             {finalOngs.map((ong) => (
               <div key={ong.cnpj} className="bg-white p-4 mb-4 shadow-md rounded-md">
                 <h3 className="text-lg text-black font-semibold mb-2">{ong.nome}</h3>
-                {/* Aqui você pode exibir os serviços contratados para cada ONG */}
-                {/* Você também pode adicionar um link para p página de detalhes da ONG */}
                 <Link href={`/ong/${ong.cnpj}`}>
                   <p className="text-blue-500 hover:underline">Ver Detalhes</p>
                 </Link>

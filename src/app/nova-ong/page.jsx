@@ -1,4 +1,3 @@
-// Importações necessárias
 "use client";
 import { useState } from "react";
 import Link from "next/link";
@@ -11,8 +10,11 @@ export default function NovaOng() {
     localidade: "",
     telefone: "",
     email: "",
-    cpf_usuario: "",
+    cpf: "",
   });
+
+  // Estado para armazenar mensagens de erro
+  const [error, setError] = useState(null);
 
   // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e) => {
@@ -20,47 +22,52 @@ export default function NovaOng() {
     setNovaOng({ ...novaOng, [name]: value });
   };
 
+  // Função para validar o formulário
+  const isValidForm = () => {
+    // Adicione validações aqui conforme necessário
+    return true;
+  };
+
   // Função para lidar com o envio do formulário
-  const handleCadastro = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const resposta = await fetch("http://localhost:8080/hydrovital/ong", {
+  // Função para lidar com o envio do formulário
+// Função para lidar com o envio do formulário
+const handleCadastro = async (e) => {
+  e.preventDefault();
+
+  try {
+    const resposta = await fetch("http://localhost:8080/hydrovital/ong", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(novaOng),
-      });
-  
-      if (resposta.ok) {
-        // Redirecionar para a página de dashboard após o cadastro
-        window.location.href = '/dashboard';
-      } else {
+    });
+    console.log(resposta);
+
+    if (resposta.ok) {
         const contentType = resposta.headers.get("content-type");
-        let erroMessage;
-  
+        
         if (contentType && contentType.includes("application/json")) {
-          // Tentar fazer parsing da resposta JSON
-          const erroJson = await resposta.json();
-          erroMessage = erroJson.message || "Erro desconhecido no servidor";
+            const resultado = await resposta.json();
+            console.log(resultado);
+            window.location.href = '/';
         } else {
-          erroMessage = "Resposta do servidor não está no formato JSON";
+            console.log("Response is not in JSON format");
         }
-  
-        console.error(`Erro no servidor: ${erroMessage}`);
-      }
-    } catch (error) {
-      console.error("Erro ao enviar dados para o backend:", error);
+    } else {
+        console.log(`Erro no servidor: ${resposta.status}`);
     }
-  };
-  
+} catch (error) {
+    console.log("Erro ao enviar dados para o backend", error);
+}
+};
+
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-6">Cadastro de Nova ONG</h2>
       <form onSubmit={handleCadastro}>
-        {/* Adicione os campos do formulário conforme necessário */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -156,17 +163,21 @@ export default function NovaOng() {
           <input
             className="w-full px-3 py-2 leading-tight border border-gray-300 rounded-md focus:outline-none focus:shadow-outline"
             id="idCpfUsuario"
-            name="cpf_usuario"
+            name="cpf"
             type="text"
-            value={novaOng.cpf_usuario}
+            value={novaOng.cpf}
             onChange={handleChange}
           />
         </div>
+
+        {/* Exibir mensagem de erro, se houver */}
+        {error && <p className="text-red-500">{error}</p>}
 
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
+            disabled={!isValidForm()}
           >
             Cadastrar ONG
           </button>

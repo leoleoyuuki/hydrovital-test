@@ -10,6 +10,8 @@ export default function Dashboard() {
   const [aguas, setAguas] = useState([]);
   const [finalOngs, setFinalOngs] = useState([]);
   var cpf = sessionStorage.getItem("token");
+  var cnpjs = sessionStorage.getItem("cnpjs");
+  cnpjs = cnpjs.split(",");
   const url = usePathname();
 
   useEffect(() => {
@@ -50,21 +52,22 @@ export default function Dashboard() {
           }
           return response.json();
         })
-        .then((aguasData) => {
+        .then((aguaData) => {
           // Atualizar o estado com os dados das ONGs
-          setAguas(aguasData);
+          setAguas(aguaData);
 
           // Encontrar todas as ONGs correspondentes ao CPF
-          const aguasEncontradas = aguasData.filter((agua) => agua.cpf === cpf);
+          const aguasEncontradas = aguaData.filter((ong) => ong.cnpjOng == (cnpjs.map((cnpj) => cnpj)));
           if (aguasEncontradas.length > 0) {
             setAguas(aguasEncontradas);
           } else {
-            console.log("Águas não encontradas para o CPF:", cpf);
+            console.log("ONGs não encontradas para o CPF:", cpf);
           }
         });
     }
   }, []);
-
+  
+  console.log(cnpjs);
   console.log(aguas);
 
   return (
@@ -78,7 +81,7 @@ export default function Dashboard() {
           </Link>
         </div>
         <div className="p-4">
-          <Link href="/aguas">
+          <Link href={`/aguas/${cpf}`}>
             <p
               className={
                 url.includes("/aguas")
@@ -116,7 +119,7 @@ export default function Dashboard() {
                 key={ong.cnpj}
                 className="bg-white p-4 mb-4 shadow-md rounded-md"
               >
-                <h3 className="text-lg text-black font-semibold mb-2">
+                <h3 className="text-lg text-blue-500 font-semibold mb-2">
                   {ong.nome}
                 </h3>
                 <p>{ong.cnpj}</p>
@@ -127,24 +130,24 @@ export default function Dashboard() {
                 <hr />
                 <br />
                 {aguas.map((agua) => (
-                  <div
+                  ong.cnpj == agua.cnpj ? <div
                     key={agua.id}
                     className="bg-white p-4 mb-4 shadow-md rounded-md"
                   >
-                    <h1>Quantidade de Água: {agua.quantidadeAgua}</h1>
-                    <p>Qualidade da Água: {agua.qualidade}</p>
-                    <p>Quantidade de Produto: {agua.quantidadeProd}</p>
-                    <p>Quantidade de Pessoas: {agua.quantidadePessoa}</p>
+                    <h1>Quantidade de Água: {agua.qualidadeAgua}</h1>
+                    <p>Qualidade da Água: {ong.cnpj == agua.cnpj ? agua.qualidade : ""}</p>
+                    <p>Quantidade de Produto: {ong.cnpj == agua.cnpj ? agua.quantidadeProd : ""}</p>
+                    <p>Quantidade de Pessoas: {ong.cnpj == agua.cnpj ?  agua.quantidadePessoa : ""}</p>
                     <br />
                     <hr />
                     <br />
-                    <Link href={`/adicionar-agua/${ong.cnpj}`}>
+                    
+                  </div> : ""
+                ))}<Link href={`/adicionar-agua/${ong.cnpj}`}>
                       <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                         Adicionar Água
                       </button>
                     </Link>
-                  </div>
-                ))}
               </div>
             ))}
           </section>
