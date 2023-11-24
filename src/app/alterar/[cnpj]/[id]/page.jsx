@@ -6,17 +6,19 @@ import { useState } from "react";
 
 export default function Dashboard() {
   // ... (seu código existente)
-const id = useParams();
+const {id} = useParams();
+const {cnpj} = useParams();
+const cpf = sessionStorage.getItem("token");
   // Estado para controlar a exibição do formulário de alteração
   const [showEditForm, setShowEditForm] = useState(false);
   // Estado para armazenar os dados editados
   const [editedAgua, setEditedAgua] = useState({
-    id: id.id,
+    id: id,
     qualidade: "",
     quantidadeAgua: "",
     quantidadeProd: "",
     quantidadePessoa: "",
-    cnpj: "",
+    cnpj: `${cnpj}`,
   });
 
   const handleChangedAgua = (e) => {
@@ -50,8 +52,6 @@ const id = useParams();
       console.error('Erro na solicitação de alteração:', error);
     }
   };
-
-  // ...
 
   return (
     <div className="max-w-md mx-auto mt-14 p-6 bg-white rounded-md shadow-md ">
