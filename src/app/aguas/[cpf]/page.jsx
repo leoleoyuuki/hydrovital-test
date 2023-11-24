@@ -186,7 +186,7 @@ export default function Dashboard() {
                       </button>
 
                       {/* Botão de Alterar (azul) */}
-                      <Link href={`/alterar/${agua.cnpj}/${agua.id}`}>
+                      <Link href={`/alterar-agua/${agua.cnpj}/${agua.id}`}>
                         <button
                           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                         >

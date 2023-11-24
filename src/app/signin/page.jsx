@@ -58,7 +58,7 @@ export default function Signin() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
+    <div className="max-w-md mx-auto mt-4 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-6">Login</h2>
       <form onSubmit={handleLogin}>
         <div className="mb-4">
@@ -123,7 +123,7 @@ export default function Signin() {
             className="w-full px-3 py-2 leading-tight border border-gray-300 rounded-md focus:outline-none focus:shadow-outline"
             id="idEmail"
             name="email"
-            type="text"
+            type="email"
             value={usuario.email}
             onChange={handleChange}
           />

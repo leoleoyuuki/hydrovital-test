@@ -56,7 +56,7 @@ export default function Dashboard() {
         console.log('Ong excluída com sucesso!');
         window.location.reload();
       } else {
-        console.error('Erro ao excluir a água.');
+        console.error('Erro ao excluir a Ong.');
       }
     } catch (error) {
       console.error('Erro na solicitação de exclusão:', error);

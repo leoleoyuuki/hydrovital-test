@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function NovaOng() {
+  const cpf = sessionStorage.getItem("token");
   // Estado para armazenar os dados da nova ONG
   const [novaOng, setNovaOng] = useState({
     cnpj: "",
@@ -50,7 +51,7 @@ const handleCadastro = async (e) => {
         if (contentType && contentType.includes("application/json")) {
             const resultado = await resposta.json();
             console.log(resultado);
-            window.location.href = '/';
+            window.location.href = `/dashboard/${cpf}`;
         } else {
             console.log("Response is not in JSON format");
         }
@@ -79,7 +80,7 @@ const handleCadastro = async (e) => {
             className="w-full px-3 py-2 leading-tight border border-gray-300 rounded-md focus:outline-none focus:shadow-outline"
             id="idCnpj"
             name="cnpj"
-            type="text"
+            type="number"
             value={novaOng.cnpj}
             onChange={handleChange}
           />
@@ -147,7 +148,7 @@ const handleCadastro = async (e) => {
             className="w-full px-3 py-2 leading-tight border border-gray-300 rounded-md focus:outline-none focus:shadow-outline"
             id="idEmail"
             name="email"
-            type="text"
+            type="email"
             value={novaOng.email}
             onChange={handleChange}
           />

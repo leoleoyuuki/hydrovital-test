@@ -129,7 +129,7 @@ const cpf = sessionStorage.getItem("token");
             className="w-full px-3 py-2 leading-tight border border-gray-300 rounded-md focus:outline-none focus:shadow-outline"
             id="idQuantidadePessoa"
             name="quantidadePessoa"
-            type="text"
+            type="number"
             value={editedAgua.quantidadePessoa}
             onChange={handleChangedAgua}
           />
